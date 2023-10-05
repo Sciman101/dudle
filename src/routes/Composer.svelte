@@ -85,17 +85,29 @@
     drawing = false;
   };
 
-  const clearDrawing = () => {
+  export const clearDrawing = () => {
     if (!context) return;
     context.clearRect(0, 0, canvas.width, canvas.height);
   };
-  const setBackgroundColor = (col) => {
-    console.log(col);
-    canvas.style.backgroundColor = col;
+  export const exportDataUrl = () => {
+    const url = canvas.toDataURL("image/png");
+    return url;
   };
 </script>
 
-<div class="container" style="width: {width}px; height: {height + 32}px;">
+<div
+  class="container"
+  style="min-width: {width}px; min-height: {height + 32}px;"
+>
+  <canvas
+    {width}
+    {height}
+    bind:this={canvas}
+    on:pointermove={pointermove}
+    on:pointerdown={pointerdown}
+    on:pointerup={pointerup}
+    on:pointerout={pointerout}
+  />
   <div class="controls">
     <ControlGroup
       name="penSize"
@@ -111,25 +123,14 @@
         size: 0,
       }))}
       bind:selected={penColor}
-      onDoubleClick={setBackgroundColor}
     />
     <div class="divider" />
     <button on:click={clearDrawing}>Clear</button>
   </div>
-  <canvas
-    {width}
-    {height}
-    bind:this={canvas}
-    on:pointermove={pointermove}
-    on:pointerdown={pointerdown}
-    on:pointerup={pointerup}
-    on:pointerout={pointerout}
-  />
 </div>
 
 <style>
   .container {
-    margin: 0 auto;
     display: flex;
     padding: 0;
     flex-direction: column;

@@ -72,7 +72,7 @@
   }
 
   input[type="radio"]:hover + label {
-    transform: translateY(4px);
+    transform: translateY(-4px);
     transition: 0.1s;
   }
 
